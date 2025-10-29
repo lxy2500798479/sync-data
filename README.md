@@ -1,264 +1,181 @@
-# 🚀 知识库数据同步工具
+# 🛠️ Assistant Tools - 业务工具集合
 
-将PostgreSQL中的知识库数据同步到Qdrant向量数据库的Python工具。
+一个集成多个实用工具的仓库，用于简化日常业务开发和运维工作。每个工具都是独立的、可单独使用的模块。
 
-## ⚡ 快速开始
+## 📦 工具列表
 
-```bash
-# 1. 安装依赖
-cd sync-data
-uv sync
-# 或使用 pip: pip install -r requirements.txt
+### 1. 📊 知识库同步工具 (sync-kb-to-qdrant)
 
-# 2. 配置环境变量（创建 .env 文件）
-# 复制下面的配置，填入你的数据库信息
-DATABASE_HOST=localhost
-DATABASE_PORT=5432
-DATABASE_NAME=your_database_name
-DATABASE_USER=your_username
-DATABASE_PASSWORD=your_password
-DATABASE_SCHEMA=public
-QDRANT_URL=http://localhost:6333
+将 PostgreSQL 中的知识库数据同步到 Qdrant 向量数据库的 Python 工具。
 
-# 3. 检查环境
-python main.py --check
+- **语言**: Python 3.11+
+- **功能**: 
+  - PostgreSQL 到 Qdrant 的数据迁移
+  - 支持多种中文嵌入模型
+  - 批量处理和 GPU 加速
+  - 完整的查询测试工具
+- **文档**: [📖 详细文档](./tools/sync-kb-to-qdrant/README.md)
+- **快速开始**:
+  ```bash
+  cd tools/sync-kb-to-qdrant
+  uv sync
+  python scripts/main.py --check
+  ```
 
-# 4. 迁移数据（使用最佳中文模型）
-python main.py --all --model BAAI/bge-large-zh-v1.5
+### 2. 🔜 更多工具即将添加...
 
-# 或迁移单个公司
-python main.py --company company_123 --model BAAI/bge-large-zh-v1.5
-```
+计划中的工具：
+- 数据迁移工具
+- API 测试工具
+- 日志分析工具
+- 自动化部署脚本
 
-📖 **详细使用说明请查看 [启动指南.md](./启动指南.md)**
+## 🚀 快速开始
 
-## ✨ 特性
-
-- 🆓 **完全免费**: 使用开源本地嵌入模型，无API费用
-- 🇨🇳 **中文优化**: 专门优化的中文语义理解模型
-- ⚡ **高性能**: 批量处理和GPU加速支持
-- 🔒 **数据安全**: 本地部署，数据不外传
-- 📊 **完整监控**: 详细的迁移报告和进度跟踪
-
-## 🛠️ 环境要求
-
-- Python 3.11+
-- PostgreSQL (源数据库)
-- Qdrant (目标向量数据库)
-- 可选: NVIDIA GPU (加速向量化)
-
-## 📦 安装依赖
+### 克隆仓库
 
 ```bash
-# 安装项目依赖
-uv sync
-
-# 激活虚拟环境
-source .venv/bin/activate  # Linux/Mac
-# 或
-.venv\Scripts\activate     # Windows
+git clone <your-repo-url>
+cd assistant-tools
 ```
 
-## ⚙️ 环境配置
+### 选择工具
 
-创建 `.env` 文件：
-
-```env
-# PostgreSQL数据库配置
-DATABASE_HOST=localhost
-DATABASE_PORT=5432
-DATABASE_NAME=your_database_name
-DATABASE_USER=your_username
-DATABASE_PASSWORD=your_password
-DATABASE_SCHEMA=public  # 重要！数据库Schema，默认为public
-
-# Qdrant向量数据库配置
-QDRANT_URL=http://localhost:6333
-# QDRANT_API_KEY=your_api_key  # 本地部署通常不需要
-
-# 可选：模型缓存目录
-# HF_CACHE_DIR=./models_cache
-```
-
-## 🧠 推荐的嵌入模型
-
-| 模型 | 大小 | 性能 | 适用场景 |
-|------|------|------|----------|
-| `BAAI/bge-large-zh-v1.5` | ~1.3GB | 高 | 🏆 最佳中文效果，推荐使用 |
-| `shibing624/text2vec-base-chinese` | ~400MB | 中 | ⚡ 速度快，平衡选择 |
-| `paraphrase-multilingual-MiniLM-L12-v2` | ~470MB | 中低 | 💻 轻量级，CPU友好 |
-
-## 🚀 使用方法
-
-### 1. 检查环境配置
+每个工具都在 `tools/` 目录下，有独立的文档和依赖管理：
 
 ```bash
-python main.py --check
+cd tools/<tool-name>
+# 查看该工具的 README.md 了解使用方法
 ```
 
-### 2. 检查数据库表结构
+## 📂 项目结构
+
+```
+assistant-tools/
+├── README.md                    # 本文件 - 工具集总览
+├── .gitignore                  # 全局忽略规则
+│
+├── tools/                      # 🛠️ 工具目录
+│   ├── sync-kb-to-qdrant/     # 知识库同步工具
+│   │   ├── README.md          # 工具说明
+│   │   ├── pyproject.toml     # Python 依赖
+│   │   ├── .env.example       # 环境变量模板
+│   │   ├── src/               # 源代码
+│   │   ├── scripts/           # 执行脚本
+│   │   └── tests/             # 测试文件
+│   │
+│   └── <future-tool>/         # 未来的工具...
+│
+└── docs/                       # 📚 全局文档
+    ├── DEVELOPMENT.md         # 开发指南
+    ├── CONTRIBUTING.md        # 贡献指南
+    └── ARCHITECTURE.md        # 架构说明
+```
+
+## 🎯 设计原则
+
+1. **独立性**: 每个工具独立运行，互不依赖
+2. **简洁性**: 每个工具专注于解决一个具体问题
+3. **文档化**: 每个工具都有完整的使用文档
+4. **可维护**: 清晰的代码结构和规范
+
+## 🤝 贡献新工具
+
+想要添加新工具？遵循以下步骤：
+
+### 1. 创建工具目录
 
 ```bash
-python main.py --check-db
-# 或直接运行
-python check_database.py
+mkdir -p tools/<your-tool-name>/{src,scripts,tests}
 ```
 
-### 3. 列出可用模型
+### 2. 添加必要文件
 
-```bash
-python main.py --list-models
+```
+tools/<your-tool-name>/
+├── README.md           # 工具说明（必需）
+├── .env.example        # 环境变量模板（如需要）
+├── pyproject.toml      # Python 项目配置
+├── package.json        # 或 Node.js 项目配置
+├── src/                # 源代码目录
+├── scripts/            # 可执行脚本
+└── tests/              # 测试文件
 ```
 
-### 4. 查看数据库统计
+### 3. 编写文档
 
-```bash
-python main.py --stats
-```
+在 `tools/<your-tool-name>/README.md` 中说明：
+- 工具用途和功能
+- 快速开始指南
+- 环境要求
+- 使用示例
+- 故障排除
 
-### 5. 迁移指定公司
+### 4. 更新主 README
 
-```bash
-# 使用默认模型
-python main.py --company company_123
+在本文件的"工具列表"中添加你的工具。
 
-# 使用指定模型
-python main.py --company company_123 --model shibing624/text2vec-base-chinese
-```
+## 📝 开发规范
 
-### 6. 迁移所有公司
+### Python 工具
 
-```bash
-# 使用默认模型
-python main.py --all
+- 使用 Python 3.11+
+- 使用 `uv` 或 `pip` 管理依赖
+- 提供 `pyproject.toml` 和 `.env.example`
+- 遵循 PEP 8 代码风格
 
-# 使用轻量级模型
-python main.py --all --model paraphrase-multilingual-MiniLM-L12-v2
-```
+### TypeScript/Node.js 工具
 
-## 📊 数据结构
+- 使用 TypeScript 5.0+
+- 使用 `bun` 或 `npm` 管理依赖
+- 提供 `package.json` 和 `.env.example`
+- 遵循 ESLint 规范
 
-迁移后的向量点包含以下核心字段：
+## 🔧 环境要求
 
-```json
-{
-  "company_id": "公司ID",
-  "intent_id": "意图ID", 
-  "intent_name": "意图名称",
-  "current_question": "当前标准问题",
-  "all_standard_questions": ["所有标准问题列表"],
-  "answers": [{"答案数据"}],
-  "popularity_tier": "HOT|WARM|COLD",
-  "embedding_model": "使用的嵌入模型",
-  "vector_quality": "向量质量分数"
-}
-```
+不同工具有不同的环境要求，请查看具体工具的 README.md。
 
-## 🔍 查询测试
+### 通用要求
 
-### 快速测试
+- Git
+- 文本编辑器或 IDE
 
-```bash
-# 交互式查询工具（推荐）
-python test_query.py
+### 可选工具
 
-# 命令行快速测试
-python test_query.py "如何重置密码" "公司ID"
-```
+- Python 3.11+ (Python 工具)
+- Node.js 18+ 或 Bun (JavaScript/TypeScript 工具)
+- Docker (容器化工具)
 
-### Python 代码示例
+## 📖 文档资源
 
-```python
-from sync_data.qdrant_manager import QdrantManager
-from sync_data.embedding_service import LocalEmbeddingService
-
-# 初始化
-qdrant = QdrantManager()
-embedding = LocalEmbeddingService('BAAI/bge-large-zh-v1.5')
-
-# 查询
-question = "如何重置密码"
-vector = embedding.encode_single(question)
-results = qdrant.search("kb_company_123", vector, limit=5)
-
-for result in results:
-    print(f"匹配问题: {result.payload['current_question']}")
-    print(f"置信度: {result.score}")
-    print(f"答案: {result.payload['answers'][0]['content']}")
-```
-
-📖 **完整的查询方案请查看 [QDRANT查询方案.md](./QDRANT查询方案.md)**
-
-## 📈 性能优化建议
-
-### GPU加速
-```bash
-# 安装CUDA版本的PyTorch
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
-```
-
-### 模型选择策略
-- **8GB+ GPU**: 使用 `BAAI/bge-large-zh-v1.5`
-- **4GB GPU**: 使用 `shibing624/text2vec-base-chinese`
-- **仅CPU**: 使用 `paraphrase-multilingual-MiniLM-L12-v2`
-
-### 批处理优化
-- 默认批大小: 32
-- GPU内存充足时可增加到 64 或 128
-- CPU环境建议降低到 16
+- [开发指南](./docs/DEVELOPMENT.md) - 开发环境配置和最佳实践
+- [贡献指南](./docs/CONTRIBUTING.md) - 如何贡献代码
+- [架构说明](./docs/ARCHITECTURE.md) - 项目架构设计
 
 ## 🐛 故障排除
 
-### 1. 数据库表不存在
+### 常见问题
+
+**Q: 如何单独使用某个工具？**
+
+A: 进入工具目录，按照该工具的 README.md 操作即可：
 ```bash
-# 检查数据库表结构
-python main.py --check-db
-
-# 常见原因和解决方案：
-# - Schema配置错误：在.env中设置 DATABASE_SCHEMA=your_schema
-# - 表名不匹配：确认是wechat-diplomat-api项目的数据库
-# - 权限问题：确认数据库用户有访问权限
+cd tools/<tool-name>
+# 按照 README 指示操作
 ```
 
-### 2. 模型下载失败
-```bash
-# 设置Hugging Face镜像
-export HF_ENDPOINT=https://hf-mirror.com
-```
+**Q: 工具之间可以共享代码吗？**
 
-### 3. 内存不足
-```bash
-# 使用更小的模型
-python main.py --all --model paraphrase-multilingual-MiniLM-L12-v2
-```
+A: 目前每个工具是独立的。如果需要共享代码，可以考虑创建 `shared/` 目录。
 
-### 4. 连接超时
-```bash
-# 检查Qdrant服务状态
-curl http://localhost:6333/collections
-```
+**Q: 如何添加新工具？**
 
-## 📋 项目结构
-
-```
-sync-data/
-├── sync_data/              # 主要包
-│   ├── __init__.py
-│   ├── main.py            # 入口文件
-│   ├── database.py        # PostgreSQL连接
-│   ├── qdrant_manager.py  # Qdrant管理
-│   ├── embedding_service.py # 嵌入服务
-│   └── migrator.py        # 迁移逻辑
-├── main.py                # 命令行入口
-├── pyproject.toml         # 项目配置
-├── .env                   # 环境变量
-└── README.md             # 说明文档
-```
-
-## 🤝 贡献
-
-欢迎提交Issue和Pull Request！
+A: 参考上面的"贡献新工具"章节。
 
 ## 📄 许可证
 
 MIT License
+
+---
+
+**✨ 让业务开发更高效！**

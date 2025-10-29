@@ -231,3 +231,48 @@ desktop.ini
 
 # uv lock file (optional - uncomment if you want to ignore it)
 # uv.lock
+
+# =====================
+# Tools Directory Structure
+# =====================
+
+# Each tool has its own .env and .venv
+tools/*/.env
+tools/*/.env.*
+!tools/*/.env.example
+tools/*/.venv/
+tools/*/venv/
+
+# Tool-specific model cache
+tools/*/models_cache/
+tools/*/models--*/
+
+# Tool-specific node_modules (for TypeScript/Node tools)
+tools/*/node_modules/
+tools/*/bun.lockb
+tools/*/package-lock.json
+
+# Tool-specific build outputs
+tools/*/dist/
+tools/*/build/
+tools/*/*.egg-info/
+
+# Tool-specific logs and temp files
+tools/*/*.log
+tools/*/tmp/
+tools/*/temp/
+
+# OLD: Root-level files (deprecated after restructure)
+# These will be moved to tools/sync-kb-to-qdrant/
+# Uncomment when migration is complete:
+# /sync_data/
+# /main.py
+# /check_database.py
+# /cleanup_collection.py
+# /generate_embedding.py
+# /test_*.py
+# /quick_test.py
+# /upload_to_api.py
+# /使用说明.txt
+# /QDRANT查询方案.md
+# /SAFETY_GUIDE.md
